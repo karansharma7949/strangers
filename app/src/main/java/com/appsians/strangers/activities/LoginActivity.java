@@ -1,14 +1,17 @@
 package com.appsians.strangers.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.appsians.strangers.R;
 import com.appsians.strangers.models.User;
@@ -18,7 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 11;
     FirebaseAuth mAuth;
+    String[] permissions = new String[] {Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
+    private int requestCode = 1;
     FirebaseDatabase database;
 
     @Override
@@ -62,9 +66,29 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(intent, RC_SIGN_IN);
+
+                if(isPermissionsGranted()) {
+                        Intent intents = new Intent(LoginActivity.this, MainActivity.class);
+                        //startActivity(new Intent(MainActivity.this, ConnectingActivity.class));
+                    } else {askPermissions();
+                    Toast.makeText(LoginActivity.this, "Please allow permissions", Toast.LENGTH_SHORT).show();
+                }
+
+                    }
                 //startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            }
-        });
+            });
+        ;
+    }
+    void askPermissions(){
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
+    }
+    private boolean isPermissionsGranted() {
+        for(String permission : permissions ){
+            if(ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
+                return false;
+        }
+
+        return true;
     }
 
     void goToNextActivity() {

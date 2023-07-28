@@ -8,7 +8,10 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,7 +32,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
     ActivityMainBinding binding;
     FirebaseAuth auth;
@@ -39,14 +42,22 @@ public class MainActivity extends AppCompatActivity {
     private int requestCode = 1;
     User user;
     KProgressHUD progress;
+    private Camera camera;
+    private SurfaceView surfaceView;
+    private SurfaceHolder surfaceHolder;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        surfaceView = findViewById(R.id.surfaceView);
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback(this);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
+
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
@@ -130,5 +141,80 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+
+    private void initializeCamera() {
+        try {
+            Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+            int cameraCount = Camera.getNumberOfCameras();
+            int cameraId = -1;
+
+            // Find the front-facing camera
+            for (int i = 0; i < cameraCount; i++) {
+                Camera.getCameraInfo(i, cameraInfo);
+                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                    cameraId = i;
+                    break;
+                }
+            }
+
+            if (cameraId == -1) {
+                // No front-facing camera found
+                Toast.makeText(this, "Front camera not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            camera = Camera.open(cameraId);
+            camera.setDisplayOrientation(90); // Adjust the orientation as needed
+
+            // Set the camera preview to the SurfaceView
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to initialize camera", Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        // Surface created, initialize the camera
+        initializeCamera();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        // Surface changed, update the camera preview if needed
+        if (surfaceHolder.getSurface() == null) {
+            // Surface is not ready, return
+            return;
+        }
+
+        // Stop the camera preview
+        try {
+            camera.stopPreview();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Start the camera preview with the updated settings
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // Surface destroyed, release the camera resources
+        if (camera != null) {
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        }
+    }
+
 
 }

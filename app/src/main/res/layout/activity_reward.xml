@@ -6,51 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".activities.RewardActivity">
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        tools:ignore="MissingConstraints" />
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bg_blur" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/backgroundimageforcoinpage" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="154dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="22dp"
+        android:gravity="center"
         android:text="WALLET"
-        android:textColor="@color/brown"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="138dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="27dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7">
+        app:layout_constraintBottom_toTopOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <ImageView
             android:id="@+id/imageView8"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="30dp"
+            android:layout_height="26dp"
             app:srcCompat="@drawable/ic_coin" />
 
         <TextView
@@ -61,29 +77,17 @@
             android:fontFamily="@font/roboto_bold"
             android:text="100"
             android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:textSize="26sp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="Your Coins"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <LinearLayout
         android:id="@+id/video1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="363dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/reward_bg"
+        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -103,8 +107,9 @@
             android:layout_weight="1"
             android:fontFamily="@font/roboto_bold"
             android:text="200 Coins"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/video1Icon"
@@ -112,14 +117,15 @@
             android:layout_height="24dp"
             app:srcCompat="@drawable/youtube" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/video2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="365dp"
+        android:layout_height="53dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/reward_bg"
+        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -139,22 +145,25 @@
             android:layout_weight="1"
             android:fontFamily="@font/roboto_bold"
             android:text="300 Coins"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/video2Icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:srcCompat="@drawable/youtube" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/video3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="365dp"
+        android:layout_height="42dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/reward_bg"
+        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -174,22 +183,25 @@
             android:layout_weight="1"
             android:fontFamily="@font/roboto_bold"
             android:text="400 Coins"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/video3Icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:srcCompat="@drawable/youtube" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/video4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="366dp"
+        android:layout_height="53dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/reward_bg"
+        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -209,22 +221,25 @@
             android:layout_weight="1"
             android:fontFamily="@font/roboto_bold"
             android:text="500 Coins"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/video4Icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:srcCompat="@drawable/youtube" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/video5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="367dp"
+        android:layout_height="52dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/reward_bg"
+        android:background="@android:color/holo_blue_bright"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -244,10 +259,12 @@
             android:layout_weight="1"
             android:fontFamily="@font/roboto_bold"
             android:text="1000 Coins"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/video5Icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             app:srcCompat="@drawable/youtube" />
@@ -258,13 +275,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="461dp"
         android:fontFamily="@font/roboto_light"
         android:gravity="center"
         android:text="In order to match with random people and make friends, watch videos to get coins."
-        android:textColor="@color/brown"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

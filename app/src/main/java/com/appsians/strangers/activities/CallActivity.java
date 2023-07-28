@@ -1,8 +1,5 @@
 package com.appsians.strangers.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +9,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.appsians.strangers.R;
 import com.appsians.strangers.databinding.ActivityCallBinding;
@@ -74,8 +74,8 @@ public class CallActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 isAudio = !isAudio;
-                callJavaScriptFunction("javascript:toggleAudio(\""+isAudio+"\")");
-                if(isAudio){
+                callJavaScriptFunction("javascript:toggleAudio(\"" + isAudio + "\")");
+                if (isAudio) {
                     binding.micBtn.setImageResource(R.drawable.btn_unmute_normal);
                 } else {
                     binding.micBtn.setImageResource(R.drawable.btn_mute_normal);
@@ -86,9 +86,9 @@ public class CallActivity extends AppCompatActivity {
         binding.videoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isVideo = !isVideo;
-                callJavaScriptFunction("javascript:toggleVideo(\""+isVideo+"\")");
-                if(isVideo){
+                isVideo =!isVideo;
+                callJavaScriptFunction("javascript:toggleVideo(\"" + isVideo + "\")");
+                if (isVideo) {
                     binding.videoBtn.setImageResource(R.drawable.btn_video_normal);
                 } else {
                     binding.videoBtn.setImageResource(R.drawable.btn_video_muted);
@@ -99,7 +99,12 @@ public class CallActivity extends AppCompatActivity {
         binding.endCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isAudio = !isAudio;
+                isVideo =!isVideo;
+                callJavaScriptFunction("javascript:toggleVideo(\"" + isVideo + "\")");
+                callJavaScriptFunction("javascript:toggleAudio(\"" + isAudio + "\")");
                 finish();
+
             }
         });
 
@@ -142,13 +147,13 @@ public class CallActivity extends AppCompatActivity {
 
         callJavaScriptFunction("javascript:init(\"" + uniqueId + "\")");
 
-        if(createdBy.equalsIgnoreCase(username)) {
-            if(pageExit)
+        if (createdBy.equalsIgnoreCase(username)) {
+            if (pageExit)
                 return;
             firebaseRef.child(username).child("connId").setValue(uniqueId);
             firebaseRef.child(username).child("isAvailable").setValue(true);
 
-            binding.loadingGroup.setVisibility(View.GONE);
+
             binding.controls.setVisibility(View.VISIBLE);
 
             FirebaseDatabase.getInstance().getReference()
@@ -204,7 +209,7 @@ public class CallActivity extends AppCompatActivity {
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                    if(snapshot.getValue() != null) {
+                                    if (snapshot.getValue() != null) {
                                         sendCallRequest();
                                     }
                                 }
@@ -220,12 +225,12 @@ public class CallActivity extends AppCompatActivity {
 
     }
 
-    public void onPeerConnected(){
+    public void onPeerConnected() {
         isPeerConnected = true;
     }
 
-    void sendCallRequest(){
-        if(!isPeerConnected) {
+    void sendCallRequest() {
+        if (!isPeerConnected) {
             Toast.makeText(this, "You are not connected. Please check your internet.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -237,13 +242,12 @@ public class CallActivity extends AppCompatActivity {
         firebaseRef.child(friendsUsername).child("connId").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                    if(snapshot.getValue() == null)
-                        return;
+                if (snapshot.getValue() == null)
+                    return;
 
-                    binding.loadingGroup.setVisibility(View.GONE);
-                    binding.controls.setVisibility(View.VISIBLE);
-                    String connId = snapshot.getValue(String.class);
-                    callJavaScriptFunction("javascript:startCall(\""+connId+"\")");
+                binding.controls.setVisibility(View.VISIBLE);
+                String connId = snapshot.getValue(String.class);
+                callJavaScriptFunction("javascript:startCall(\"" + connId + "\")");
             }
 
             @Override
@@ -253,7 +257,7 @@ public class CallActivity extends AppCompatActivity {
         });
     }
 
-    void callJavaScriptFunction(String function){
+    void callJavaScriptFunction(String function) {
         binding.webView.post(new Runnable() {
             @Override
             public void run() {
@@ -262,7 +266,7 @@ public class CallActivity extends AppCompatActivity {
         });
     }
 
-    String getUniqueId(){
+    String getUniqueId() {
         return UUID.randomUUID().toString();
     }
 
@@ -273,4 +277,7 @@ public class CallActivity extends AppCompatActivity {
         firebaseRef.child(createdBy).setValue(null);
         finish();
     }
+
+
+
 }

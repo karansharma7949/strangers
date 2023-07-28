@@ -22,9 +22,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintVertical_bias="0.558"
         app:srcCompat="@drawable/logo" />
 
     <TextView
@@ -35,6 +36,7 @@
         android:text="Random Video Call"
         android:textColor="@color/white"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -46,22 +48,26 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_light"
         android:gravity="center"
-        android:text="Talk with Random people \n from all around the globe. \n Make new friends and have fun!"
+        android:text="Meet new peoples all around the world"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/getStarted"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="305dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="20dp"
         android:paddingLeft="60dp"
         android:paddingRight="60dp"
         android:text="Get Started"
         android:textAllCaps="false"
-        app:backgroundTint="@color/green"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_200"
         app:cornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

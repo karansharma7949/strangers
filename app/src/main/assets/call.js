@@ -66,7 +66,6 @@ function startCall(otherUserId) {
 
     })
 }
-
 function toggleVideo(b) {
     if (b == "true") {
         localStream.getVideoTracks()[0].enabled = true

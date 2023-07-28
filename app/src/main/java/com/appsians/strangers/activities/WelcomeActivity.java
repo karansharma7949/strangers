@@ -1,10 +1,10 @@
 package com.appsians.strangers.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.appsians.strangers.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
         findViewById(R.id.getStarted).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 goToNextActivity();
             }
         });
